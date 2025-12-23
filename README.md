@@ -38,4 +38,4 @@ This project uses **legacy OpenGL (Immediate Mode)** and **GLUT** for rendering 
 *   **Physics**: Simple collision detection (`check_collisions`) handles AABB interactions for static blocks and "Sphere-vs-AABB" logic for the player. Moving objects update their positions in `idle()`.
 *   **State Management**: Global variables track game state (Level, Score, Lives, Object Lists).
 
-*Built for CGE/CSE OpenGL Assignments.*
+
