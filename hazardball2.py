@@ -107,8 +107,7 @@ def init_map():
                     item_rng = random.random()
                     
                     # Ensure Portal Spawns (Type 6)
-                    # We will just force it at a specific far location if not spawned randomly
-                    # But let's try random first.
+                    # force it at a specific far location if not spawned randomly
                     
                     if item_rng < 0.03:    # Diamond (Points) -> Type 3
                         map_data[(x, y)] = 3
@@ -382,7 +381,7 @@ def check_collisions():
             # Level Complete!
             print(f"Level {level} Complete!")
             level += 1
-            game_over = False # Just in case
+            game_over = False 
             falling = False
             player_pos = [0, 0, 20]
             player_vel = [0, 0, 0]
@@ -444,12 +443,6 @@ def idle():
         player_vel[0] *= current_friction
         player_vel[1] *= current_friction
         
-        # Apply velocity updates in keyboardListener or logic? 
-        # Actually logic for applying acceleration is missing in original IDLE. 
-        # It was inside keyboardListener directly modifying velocity. 
-        # So 'current_acc' only affects future keystrokes if we use it there.
-        # But wait, original code modifies velocity inside keyboardListener using 'player_acc'.
-        # We need to make sure keyboardListener uses the boosted acceleration.
         
         player_pos[0] += player_vel[0]
         player_pos[1] += player_vel[1]
@@ -461,12 +454,6 @@ def idle():
         if powerup_active:
              eff_acc *= 2.0
              
-        # Continuous Input Handling Removed - Using Discrete Input due to limitation
-        # if not game_over and not falling:
-        #    if b'w' in keys_pressed: player_vel[0] += eff_acc
-        #    if b's' in keys_pressed: player_vel[0] -= eff_acc
-        #    if b'a' in keys_pressed: player_vel[1] += eff_acc
-        #    if b'd' in keys_pressed: player_vel[1] -= eff_acc
 
     # Update Moving Objects
     for obj in moving_objects:
@@ -479,7 +466,7 @@ def idle():
     # Level 5: Meltdown
     if level >= 5 and not falling and not game_over:
         crumble_timer += 1
-        if crumble_timer > 120: # Every ~2 seconds (60fps assumed)
+        if crumble_timer > 120: # Every ~2 seconds 
             crumble_timer = 0
             # Pick a safe spot nearby and destroy it
             cx = (player_pos[0] // GRID_CELL_SIZE) * GRID_CELL_SIZE
@@ -493,7 +480,6 @@ def idle():
                 
                 if map_data.get(target) == 0:
                     map_data[target] = 1 # Turning into Hole!
-                    # print("CRUMBLE!") # Optional spam
                     break
 
     glutPostRedisplay()
@@ -634,7 +620,6 @@ def main():
 
     glutDisplayFunc(showScreen)
     glutKeyboardFunc(keyboardListener)
-    # glutKeyboardUpFunc(keyboardUpListener) # REMOVED: Not Allowed
     glutSpecialFunc(specialKeyListener)
 
     glutMouseFunc(mouseListener)
